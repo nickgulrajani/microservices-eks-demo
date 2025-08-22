@@ -11,3 +11,15 @@ output "repository_arns" {
     for k, v in aws_ecr_repository.repositories : k => v.arn
   }
 }
+
+output "repository_registry_ids" {
+  description = "Map of repository names to registry IDs"
+  value = {
+    for k, v in aws_ecr_repository.repositories : k => v.registry_id
+  }
+}
+
+output "repository_names" {
+  description = "List of repository names"
+  value       = values(aws_ecr_repository.repositories)[*].name
+}
